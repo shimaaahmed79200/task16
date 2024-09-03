@@ -60,17 +60,20 @@ body {
   justify-content:flex-end;
 
 }
-
+.add{
+  font-size: 16px;
+  padding: 10px 20px;
+}
 .reply{
   color: #6a2eea;
   background-color: #fafafa;
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
 }
 .Delete{
   color: #d40606;
   background-color: #fafafa;
-  font-size: 15px;
+  font-size: 14px;
   margin: 0;
 }
 .Delete:hover{

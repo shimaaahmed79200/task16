@@ -34,7 +34,7 @@ const NewPost = () => {
             value={newPostText}
             onChange={(e) => setNewPostText(e.target.value)}
           />
-          <button onClick={handleAddPost}>Add</button>
+          <button onClick={handleAddPost} className='add'>Add</button>
         </div>
       )}
     </div>
