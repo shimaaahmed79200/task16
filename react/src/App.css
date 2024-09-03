@@ -287,3 +287,12 @@ input:focus{
 .comment .span{
   color: #5620c9;
 }
+
+.arrow-icon {
+  margin-right: 5px;
+  transition: transform 0.3s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}

@@ -1,9 +1,15 @@
 import create from 'zustand';
 
 const useStore = create((set) => ({
+  currentUser: {
+    id: 1, // معرف المستخدم الحالي
+    name: 'CurrentUser'
+  },
+
   posts: [
     {
       id: 1,
+      authorId: 1,
       userProfilePicture: '../../../public/assets/image-amyrobson.webp', 
       text:'Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You\'ve nailed the design and the responsiveness at various breakpoints works really well',
       time: '1 month ago', 
@@ -12,6 +18,7 @@ const useStore = create((set) => ({
     },
     {
       id: 2,
+      authorId: 2,
       userProfilePicture: '../../../public/assets/image-maxblagun.webp',
       time: '2 weeks ago',
       text: "Woah, your project looks awesome! How long have you been coding for? I'm still new, but think I want to dive into React as well soon. Perhaps you can give me an insight on where I can learn React? Thanks!",
@@ -61,21 +68,33 @@ const useStore = create((set) => ({
     )
   })),
 
-  incrementLikesComments: (commentId) => set((state) => ({
-    comments: state.comments.map(comment =>
-      comment.id === commentId
-        ? { ...comment, Likes: (comment.Likes || 0) + 1 }
-        : comment
-    )
-  })),
+  incrementLikesComments: (commentId) => set((state) => {
+    console.log('Incrementing likes for comment:', commentId);
+    return {
+      posts: state.posts.map(post => ({
+        ...post,
+        comments: post.comments.map(comment =>
+          comment.id === commentId
+            ? { ...comment, Likes: (comment.Likes || 0) + 1 }
+            : comment
+        )
+      }))
+    };
+  }),
+  decrementLikesComments: (commentId) => set((state) => {
+    console.log('Decrementing likes for comment:', commentId);
+    return {
+      posts: state.posts.map(post => ({
+        ...post,
+        comments: post.comments.map(comment =>
+          comment.id === commentId
+            ? { ...comment, Likes: (comment.Likes || 0) > 0 ? (comment.Likes || 0) - 1 : 0 }
+            : comment
+        )
+      }))
+    };
+  }),
 
-  decrementLikesComments: (commentId) => set((state) => ({
-    comments: state.comments.map(comment =>
-      comment.id === commentId
-        ? { ...comment, Likes: (comment.Likes || 0) > 0 ? (comment.Likes || 0) - 1 : 0 }
-        : comment
-    )
-  })),
 
   addComment: (postId, comment) => set((state) => ({
     posts: state.posts.map(post =>
